@@ -16,7 +16,7 @@ abstract class BaseResource extends JsonResource
     {
         return [parent::toArray($request)];
     }
-    
+
     /**
      * Transform the resource into an array.
      *

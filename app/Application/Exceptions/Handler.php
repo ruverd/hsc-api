@@ -50,12 +50,15 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof ValidationException) {
-            return HTTPStatus::sendError(HTTPStatus::HTTP_UNPROCESSABLE_ENTITY,'Validation errors',$exception->validator->errors()->getMessages());
+            return HTTPStatus::sendError(HTTPStatus::HTTP_BAD_REQUEST,'Validation errors',$exception->validator->errors()->getMessages());
         } else if($exception instanceof AuthorizationException){
             return HTTPStatus::sendError(HTTPStatus::HTTP_FORBIDDEN );
         } else if (!method_exists($exception, 'getStatusCode') || !$request->wantsJson()) {
              return HTTPStatus::sendError(HTTPStatus::HTTP_NOT_FOUND);
+        } else if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            return response()->json(['error' => 'Resource not found'], 404);
         }
         return HTTPStatus::sendError($exception->getStatusCode());
+        // return HTTPStatus::sendError($exception);
     }
 }

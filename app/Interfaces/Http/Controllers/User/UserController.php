@@ -25,7 +25,7 @@ class UserController extends BaseController
     public function index(Request $request)
     {
         return $this->HTTPStatus::sendResponse(
-            UserResource::make($this->repository->all()),
+            UserResource::collection($this->repository->all()),
             $this->HTTPStatus::HTTP_OK
         );
     }

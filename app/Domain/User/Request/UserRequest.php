@@ -24,9 +24,13 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=> 'required|string',
-            'name'=> 'required|string'
-        ];           
+            'email'=> 'required|unique:users|string',
+            'name'=> 'required|string',
+            'dob'=> 'required|string',
+            'gender'=> 'required|integer',
+            'married'=> 'required|integer',
+
+        ];
     }
 
     /**
@@ -37,7 +41,7 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            
+
         ];
     }
 }

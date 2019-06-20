@@ -12,18 +12,36 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::apiResources([
-    'users' => '\App\Interfaces\Http\Controllers\User\UserController'
-]);
+Route::group([
+    'middleware' => ['jwt.verify'],
+    'namespace' => '\App\Interfaces\Http\Controllers'
+], function()
+{
+    Route::apiResources([
+        'files' => 'File\FileController',
+        'profiles' => 'Profile\ProfileController',
+        'specialities' => 'Speciality\SpecialityController',
+        'users' => 'User\UserController',
+        'user.backgrounds' => 'User\UserBackgroundController',
+        'user.contacts' => 'User\UserContactController',
+        'user.documents' => 'User\UserDocumentController',
+        'user.files' => 'User\UserFileController',
+        'user.offices' => 'User\UserOfficeController',
+        'user.payments' => 'User\UserPaymentController',
+        'user.specialities' => 'User\UserSpecialityController',
+        'user.status' => 'User\UserStatusController',
+        'user.vehicles' => 'User\UserVehicleController'
+    ]);
+});
 
 Route::group([
-    'prefix' => 'auth', 
+    'prefix' => 'auth',
     'namespace' => '\App\Interfaces\Http\Controllers\Auth'
 ], function()
 {
     Route::post('login', 'AuthController@login')->name('login');
+    Route::post('register', 'AuthController@register')->name('register');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::get('me', 'AuthController@me');
 });

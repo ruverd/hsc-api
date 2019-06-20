@@ -18,6 +18,9 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
+        'dob' => $faker->date('Y-m-d', 'now'),
+        'profile_id' => rand(DB::table('profiles')->min('id'), DB::table('profiles')->max('id')),
+        'user_status_id' => 1,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
     ];
