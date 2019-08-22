@@ -77,16 +77,39 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $validator = $this->validateRegister($request);
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()],400);
-        }
-
+        if ($validator->fails()) return response()->json(['error' => $validator->errors()->first()],400);
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
+        $credentials = $request->only('email', 'password');
+        if ($token = $this->guard()->attempt($credentials)) {
+            $this->clearLoginAttempts($request);
+            return $this->respondWithToken($token);
+        }
+        return $this->failedLogin($request);
+    }
 
+    /**
+     * Get a JWT token via given credentials.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updatePassword(Request $request)
+    {
+        $validator = $this->validateRegister($request);
+        if ($validator->fails()) return response()->json(['error' => $validator->errors()->first()],400);
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
             $this->clearLoginAttempts($request);
@@ -105,7 +128,7 @@ class AuthController extends BaseController
     {
         return Validator::make($request->all(), [
             'name' => 'required|string|min:3',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|unique:users|string|email|max:255',
             'password' => 'required|min:3',
             'password_confirmation' => 'required|min:3' 
         ]);

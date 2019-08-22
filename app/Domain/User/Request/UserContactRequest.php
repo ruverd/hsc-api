@@ -25,13 +25,20 @@ class UserContactRequest extends FormRequest
     {
         return [
             'user_id'=> 'required|integer|unique:user_contracts',
-            'street'=> 'required|string',
-            'number'=> 'required|string',
-            'neighborhood'=> 'required|string',
-            'city'=> 'required|string',
-            'state'=> 'required|string',
-            'zipcode'=> 'required|string',
-            'phone'=> 'required|string'
+            'street_personal'=> 'required|string',
+            'number_personal'=> 'required|string',
+            'neighborhood_personal'=> 'required|string',
+            'city_personal'=> 'required|string',
+            'state_personal'=> 'required|string',
+            'zipcode_personal'=> 'required|string',
+            'phone_personal'=> 'required|string',
+            'street_business'=> 'required|string',
+            'number_business'=> 'required|string',
+            'neighborhood_business'=> 'required|string',
+            'city_business'=> 'required|string',
+            'state_business'=> 'required|string',
+            'zipcode_business'=> 'required|string',
+            'phone_business'=> 'required|string'
         ];
     }
 

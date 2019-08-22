@@ -24,6 +24,7 @@ class SpecialityController extends BaseController
      */
     public function index(Request $request)
     {
+        // return $this->repository->all();
         return $this->HTTPStatus::sendResponse(
             SpecialityResource::collection($this->repository->all()),
             $this->HTTPStatus::HTTP_OK

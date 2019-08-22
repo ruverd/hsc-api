@@ -4,6 +4,7 @@ namespace App\Domain\User\Resources;
 
 use App\Infrastructure\Http\Resources\BaseResource;
 use App\Domain\Profile\Resources\ProfileResource;
+use App\Domain\User\Resources\UserStatusResource;
 
 class UserResource extends BaseResource
 {
@@ -21,6 +22,7 @@ class UserResource extends BaseResource
             'profile_id' => $this->profile_id,
             'profile' => ProfileResource::make($this->profile),
             'user_status_id' => $this->user_status_id,
+            'status' => UserStatusResource::make($this->user_status),
             'email' => $this->email,
             'gender' => $this->gender,
             'married' => $this->married,

@@ -58,6 +58,7 @@ class Handler extends ExceptionHandler
         } else if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
             return response()->json(['error' => 'Resource not found'], 404);
         }
+        //dd($exception);
         return HTTPStatus::sendError($exception->getStatusCode());
         // return HTTPStatus::sendError($exception);
     }

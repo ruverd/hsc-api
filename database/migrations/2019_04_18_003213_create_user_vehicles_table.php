@@ -19,12 +19,12 @@ class CreateUserVehiclesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
             
-            $table->string('brand');
-            $table->string('model');
-            $table->integer('year');
-            $table->string('color');
-            $table->string('renavam');
-            $table->string('tag');
+            $table->string('brand')->nullable();
+            $table->string('model')->nullable();
+            $table->integer('year')->nullable();
+            $table->string('color')->nullable();
+            $table->string('renavam')->nullable();
+            $table->string('tag')->nullable();
             $table->timestamps();
         });
     }

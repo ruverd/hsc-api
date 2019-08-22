@@ -66,11 +66,11 @@ class UserController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Domain\User\Request\UserRequest  $request
+     * @param  Illuminate\Http\Request;  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = $this->repository->find($id);
         if($user->update($request->all())){
@@ -79,6 +79,25 @@ class UserController extends BaseController
                 $this->HTTPStatus::HTTP_ACCEPTED
             );
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  App\Domain\User\Request\UserRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(UserRequest $request, $id)
+    {
+        dd('chegou');
+        // $user = $this->repository->find($id);
+        // if($user->update($request->all())){
+        //     return $this->HTTPStatus::sendResponse(
+        //         UserResource::make($user),
+        //         $this->HTTPStatus::HTTP_ACCEPTED
+        //     );
+        // }
     }
 
     /**

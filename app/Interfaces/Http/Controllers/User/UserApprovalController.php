@@ -4,15 +4,15 @@ namespace App\Interfaces\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Infrastructure\Http\Controllers\BaseController;
-use App\Domain\User\Resources\UserBackgroundResource;
-use App\Domain\User\Request\UserBackgroundRequest;
-use App\Domain\User\Contracts\UserBackgroundRepositoryInterface;
+use App\Domain\User\Resources\UserApprovalResource;
+use App\Domain\User\Request\UserApprovalRequest;
+use App\Domain\User\Contracts\UserApprovalRepositoryInterface;
 
-class UserBackgroundController extends BaseController
+class UserApprovalController extends BaseController
 {
     protected $repository = null;
 
-    public function __construct(UserBackgroundRepositoryInterface $repository)
+    public function __construct(UserApprovalRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -25,7 +25,7 @@ class UserBackgroundController extends BaseController
     public function index(Request $request)
     {
         return $this->HTTPStatus::sendResponse(
-            UserBackgroundResource::collection($this->repository->all()),
+            UserApprovalResource::collection($this->repository->all()),
             $this->HTTPStatus::HTTP_OK
         );
     }
@@ -38,9 +38,9 @@ class UserBackgroundController extends BaseController
      */
     public function show($id)
     {
-        $userBackground = $this->repository->find($id);
+        $userApproval = $this->repository->find($id);
         return $this->HTTPStatus::sendResponse(
-            UserBackgroundResource::make($userBackground),
+            UserApprovalResource::make($userApproval),
             $this->HTTPStatus::HTTP_OK
         );
     }
@@ -48,17 +48,17 @@ class UserBackgroundController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Domain\User\Request\UserBackgroundRequest  $request
+     * @param  App\Domain\User\Request\UserApprovalRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserBackgroundRequest $request)
+    public function store(UserApprovalRequest $request)
     {
-        $userBackground = $this->repository->create($request->all());
-        if(!$userBackground){
+        $userApproval = $this->repository->create($request->all());
+        if(!$userApproval){
             return $this->HTTPStatus::sendError($this->HTTPStatus::HTTP_NO_CONTENT);
         }
         return $this->HTTPStatus::sendResponse(
-            UserBackgroundResource::make($userBackground),
+            UserApprovalResource::make($userApproval),
             $this->HTTPStatus::HTTP_CREATED
         );
     }
@@ -66,16 +66,16 @@ class UserBackgroundController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Domain\User\Request\UserBackgroundRequest  $request
+     * @param  App\Domain\User\Request\UserApprovalRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserBackgroundRequest $request, $id)
+    public function update(UserApprovalRequest $request, $id)
     {
-        $userBackground = $this->repository->find($id);
-        if($userBackground->update($request->all())){
+        $userApproval = $this->repository->find($id);
+        if($userApproval->update($request->all())){
             return $this->HTTPStatus::sendResponse(
-                UserBackgroundResource::make($userBackground),
+                UserApprovalResource::make($userApproval),
                 $this->HTTPStatus::HTTP_ACCEPTED
             );
         }
@@ -89,10 +89,10 @@ class UserBackgroundController extends BaseController
      */
     public function destroy($id)
     {
-        $userBackground = $this->repository->find($id);
+        $userApproval = $this->repository->find($id);
         if($this->repository->delete($id)){
             return $this->HTTPStatus::sendResponse(
-                UserBackgroundResource::make($userBackground),
+                UserApprovalResource::make($userApproval),
                 $this->HTTPStatus::HTTP_OK
             );
         }

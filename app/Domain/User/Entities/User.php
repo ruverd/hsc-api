@@ -24,6 +24,8 @@ class User extends Authenticatable implements JWTSubject
         'gender',
         'married',
         'dob',
+        'validate',
+        'approve',
         'email',
         'password'
     ];
@@ -72,7 +74,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function status()
+    public function user_status()
     {
         return $this->belongsTo(UserStatus::class);
     }

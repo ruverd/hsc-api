@@ -19,14 +19,23 @@ class CreateUserContactsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
 
-            $table->string('street');
-            $table->string('number');
-            $table->string('neighborhood');
-            $table->string('city');
-            $table->string('state');
-            $table->string('additional')->nullable();
-            $table->string('zipcode');
-            $table->string('phone');
+            $table->string('street_personal');
+            $table->string('number_personal');
+            $table->string('neighborhood_personal');
+            $table->string('city_personal');
+            $table->string('state_personal');
+            $table->string('additional_personal')->nullable();
+            $table->string('zipcode_personal');
+            $table->string('phone_personal');
+
+            $table->string('street_business');
+            $table->string('number_business');
+            $table->string('neighborhood_business');
+            $table->string('city_business');
+            $table->string('state_business');
+            $table->string('additional_business')->nullable();
+            $table->string('zipcode_business');
+            $table->string('phone_business');
             $table->timestamps();
         });
     }

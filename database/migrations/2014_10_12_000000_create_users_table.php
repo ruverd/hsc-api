@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->boolean('gender')->default(1);
             $table->boolean('married')->default(1); //filing status
             $table->date('dob')->nullable();
+            $table->date('validate')->nullable();
+            $table->date('approve')->nullable();
             $table->text('comment')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

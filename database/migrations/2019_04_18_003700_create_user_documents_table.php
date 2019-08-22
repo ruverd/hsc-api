@@ -25,8 +25,6 @@ class CreateUserDocumentsTable extends Migration
             $table->string('crm');
             $table->string('crm_emitter');
             $table->date('date_crm');
-            $table->boolean('amb_sbm')->default(1);
-            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

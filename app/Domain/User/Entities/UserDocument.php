@@ -18,7 +18,8 @@ class UserDocument extends Model
         'rg',
         'rg_emitter',
         'crm',
-        'crm_emitter'
+        'crm_emitter',
+        'date_crm'
     ];
 
     /**

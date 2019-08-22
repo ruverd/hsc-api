@@ -14,7 +14,7 @@ class ProfilesTableSeeder extends Seeder
         factory(Profile::class)->create(
             [
                 'id' => 1,
-                'name' => 'Administrador'
+                'name' => 'Médico'
             ]
         );
 
@@ -28,7 +28,7 @@ class ProfilesTableSeeder extends Seeder
         factory(Profile::class)->create(
             [
                 'id' => 3,
-                'name' => 'Médico'
+                'name' => 'Administrador'
             ]
         );
     }

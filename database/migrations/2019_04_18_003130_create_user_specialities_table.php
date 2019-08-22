@@ -21,6 +21,10 @@ class CreateUserSpecialitiesTable extends Migration
 
             $table->integer('speciality_id')->unsigned();
             $table->foreign('speciality_id')->references('id')->on('specialities')->onUpdate('cascade');
+
+            $table->string('file');
+            $table->boolean('approved')->default(0);
+            $table->text('comment')->nullable();
             
             $table->timestamps();
         });

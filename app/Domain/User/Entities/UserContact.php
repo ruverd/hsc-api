@@ -14,14 +14,22 @@ class UserContact extends Model
      */
     protected $fillable = [
         'user_id',
-        'street',
-        'number',
-        'neighborhood',
-        'city',
-        'state',
-        'additional',
-        'zipcode',
-        'phone'
+        'street_personal',
+        'number_personal',
+        'neighborhood_personal',
+        'city_personal',
+        'state_personal',
+        'additional_personal',
+        'zipcode_personal',
+        'phone_personal',
+        'street_business',
+        'number_business',
+        'neighborhood_business',
+        'city_business',
+        'state_business',
+        'additional_business',
+        'zipcode_business',
+        'phone_business'
     ];
 
     /**

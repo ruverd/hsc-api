@@ -28,8 +28,7 @@ class UserRequest extends FormRequest
             'name'=> 'required|string',
             'dob'=> 'required|string',
             'gender'=> 'required|integer',
-            'married'=> 'required|integer',
-
+            'married'=> 'required|integer'
         ];
     }
 
