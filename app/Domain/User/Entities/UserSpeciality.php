@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Domain\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,33 +7,46 @@ use App\Domain\Speciality\Entities\Speciality;
 
 class UserSpeciality extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id',
-        'speciality_id'
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'user_id',
+    'speciality_id',
+    'file',
+    'approved',
+    'comment'
+  ];
 
-    /**
-     * Relation with user
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+  /**
+   * Relation with user
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 
-    /**
-     * Relation with speciality
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function speciality()
-    {
-        return $this->belongsTo(Speciality::class);
+  /**
+   * Relation with speciality
+   *
+   * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+   */
+  public function speciality()
+  {
+    return $this->belongsTo(Speciality::class);
+  }
+
+  public function getStatusLabel($approved = null)
+  {
+    if (status === 1) {
+        return "Aprovado";
+    } else if (status === 0) {
+      return "Negado";
     }
+    return "Processando";
+  }
 }

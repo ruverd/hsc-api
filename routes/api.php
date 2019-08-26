@@ -46,6 +46,9 @@ Route::group([
     Route::get('register/payments/{id}', 'Register\PaymentController@show')->name('register.payments');
     Route::put('register/payments/{id}', 'Register\PaymentController@update')->name('register.payments.update');
     Route::post('register/payments', 'Register\PaymentController@store')->name('register.payments.store');
+    Route::get('register/specialities/user/{id}', 'Register\SpecialityController@getSpecialitiesByUser')->name('register.specialities.user');
+    Route::get('register/specialities/{id}', 'Register\SpecialityController@show')->name('register.specialities');
+    Route::post('register/specialities', 'Register\SpecialityController@store')->name('register.specialities.store');
 });
 
 Route::group([

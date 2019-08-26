@@ -7,6 +7,7 @@ use App\Infrastructure\Http\Controllers\BaseController;
 use App\Domain\User\Resources\UserSpecialityResource;
 use App\Domain\User\Request\UserSpecialityRequest;
 use App\Domain\User\Contracts\UserSpecialityRepositoryInterface;
+use Illuminate\Support\Facades\Storage;
 
 class UserSpecialityController extends BaseController
 {
@@ -48,19 +49,35 @@ class UserSpecialityController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Domain\User\Request\UserSpecialityRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserSpecialityRequest $request)
+    public function store(Request $request)
     {
-        $userSpeciality = $this->repository->create($request->all());
-        if(!$userSpeciality){
-            return $this->HTTPStatus::sendError($this->HTTPStatus::HTTP_NO_CONTENT);
-        }
         return $this->HTTPStatus::sendResponse(
-            UserSpecialityResource::make($userSpeciality),
-            $this->HTTPStatus::HTTP_CREATED
-        );
+                'asdasdas',
+                $this->HTTPStatus::HTTP_CREATED
+            );
+
+        // if ($request->hasFile('file')) {
+        //     $path = $request->file('file')->store('images');
+        //     return response()->json([
+        //         'message' => 'Upload success.',
+        //         'path' => $path,
+        //         'status' => 200
+        //     ], 200);
+        // }
+        //Storage::put('register/'.$request->userId.'/', $request->file);
+
+        // $userSpeciality = $this->repository->create($request->all());
+        // if(!$userSpeciality){
+        //     return $this->HTTPStatus::sendError($this->HTTPStatus::HTTP_NO_CONTENT);
+        // }
+
+        // return $this->HTTPStatus::sendResponse(
+        //     UserSpecialityResource::make($userSpeciality),
+        //     $this->HTTPStatus::HTTP_CREATED
+        // );
     }
 
     /**

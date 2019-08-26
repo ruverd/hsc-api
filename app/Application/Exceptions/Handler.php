@@ -49,17 +49,22 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        dd($exception);
         if ($exception instanceof ValidationException) {
+            dd('111');
             return HTTPStatus::sendError(HTTPStatus::HTTP_BAD_REQUEST,'Validation errors',$exception->validator->errors()->getMessages());
         } else if($exception instanceof AuthorizationException){
+            dd('222');
             return HTTPStatus::sendError(HTTPStatus::HTTP_FORBIDDEN );
         } else if (!method_exists($exception, 'getStatusCode') || !$request->wantsJson()) {
-             return HTTPStatus::sendError(HTTPStatus::HTTP_NOT_FOUND);
+            dd('333');
+            return HTTPStatus::sendError(HTTPStatus::HTTP_NOT_FOUND);
         } else if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+            dd('444');
             return response()->json(['error' => 'Resource not found'], 404);
         }
-        //dd($exception);
-        return HTTPStatus::sendError($exception->getStatusCode());
-        // return HTTPStatus::sendError($exception);
+        dd('555');
+        //return HTTPStatus::sendError($exception->getStatusCode());
+        return HTTPStatus::sendError($exception);
     }
 }
