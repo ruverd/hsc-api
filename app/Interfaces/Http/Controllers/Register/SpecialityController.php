@@ -86,4 +86,21 @@ class SpecialityController extends BaseController
             $this->HTTPStatus::HTTP_CREATED
         );
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $userSpeciality = $this->repository->find($id);
+        if($this->repository->delete($id)){
+            return $this->HTTPStatus::sendResponse(
+                UserSpecialityResource::make($userSpeciality),
+                $this->HTTPStatus::HTTP_OK
+            );
+        }
+    }
 }

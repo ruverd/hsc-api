@@ -49,6 +49,7 @@ Route::group([
     Route::get('register/specialities/user/{id}', 'Register\SpecialityController@getSpecialitiesByUser')->name('register.specialities.user');
     Route::get('register/specialities/{id}', 'Register\SpecialityController@show')->name('register.specialities');
     Route::post('register/specialities', 'Register\SpecialityController@store')->name('register.specialities.store');
+    Route::delete('register/specialities/{id}', 'Register\SpecialityController@destroy')->name('register.specialities.destroy');
 });
 
 Route::group([
