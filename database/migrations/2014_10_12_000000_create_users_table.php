@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('profile_id')->unsigned()->default(3);
+            $table->integer('profile_id')->unsigned()->default(1);
             $table->foreign('profile_id')->references('id')->on('profiles')->onUpdate('cascade');
 
             $table->integer('user_status_id')->unsigned()->default(1);
@@ -26,8 +26,9 @@ class CreateUsersTable extends Migration
             $table->boolean('gender')->default(1);
             $table->boolean('married')->default(1); //filing status
             $table->date('dob')->nullable();
-            $table->date('validate')->nullable();
-            $table->date('approve')->nullable();
+            $table->date('registered')->nullable();
+            $table->date('validated')->nullable();
+            $table->date('approved')->nullable();
             $table->text('comment')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

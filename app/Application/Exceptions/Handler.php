@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        dd($exception);
+        // dd($exception);
         if ($exception instanceof ValidationException) {
             dd('111');
             return HTTPStatus::sendError(HTTPStatus::HTTP_BAD_REQUEST,'Validation errors',$exception->validator->errors()->getMessages());

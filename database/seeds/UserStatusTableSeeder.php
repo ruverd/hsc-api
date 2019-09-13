@@ -36,13 +36,20 @@ class UserStatusTableSeeder extends Seeder
         factory(UserStatus::class)->create(
             [
                 'id'   => 4,
-                'name' => 'Aprovado'
+                'name' => 'Não validado'
             ]
         );
 
         factory(UserStatus::class)->create(
             [
                 'id'   => 5,
+                'name' => 'Aprovado'
+            ]
+        );
+
+        factory(UserStatus::class)->create(
+            [
+                'id'   => 6,
                 'name' => 'Reprovado'
             ]
         );

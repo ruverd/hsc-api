@@ -2,11 +2,11 @@
 
 namespace App\Interfaces\Http\Controllers\User;
 
-use Illuminate\Http\Request;
-use App\Infrastructure\Http\Controllers\BaseController;
-use App\Domain\User\Resources\UserResource;
-use App\Domain\User\Request\UserRequest;
 use App\Domain\User\Contracts\UserRepositoryInterface;
+use App\Domain\User\Request\UserRequest;
+use App\Domain\User\Resources\UserResource;
+use App\Infrastructure\Http\Controllers\BaseController;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
@@ -39,6 +39,23 @@ class UserController extends BaseController
     public function show($id)
     {
         $user = $this->repository->find($id);
+
+        return $this->HTTPStatus::sendResponse(
+            UserResource::make($user),
+            $this->HTTPStatus::HTTP_OK
+        );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getByProfile($profileId)
+    {
+        $user = $this->repository->findByField();
+
         return $this->HTTPStatus::sendResponse(
             UserResource::make($user),
             $this->HTTPStatus::HTTP_OK
@@ -54,9 +71,10 @@ class UserController extends BaseController
     public function store(UserRequest $request)
     {
         $user = $this->repository->create($request->all());
-        if(!$user){
+
+        if (!$user)
             return $this->HTTPStatus::sendError($this->HTTPStatus::HTTP_NO_CONTENT);
-        }
+
         return $this->HTTPStatus::sendResponse(
             UserResource::make($user),
             $this->HTTPStatus::HTTP_CREATED
@@ -73,7 +91,8 @@ class UserController extends BaseController
     public function update(Request $request, $id)
     {
         $user = $this->repository->find($id);
-        if($user->update($request->all())){
+
+        if ($user->update($request->all())) {
             return $this->HTTPStatus::sendResponse(
                 UserResource::make($user),
                 $this->HTTPStatus::HTTP_ACCEPTED
@@ -90,14 +109,14 @@ class UserController extends BaseController
      */
     public function updatePassword(UserRequest $request, $id)
     {
-        dd('chegou');
-        // $user = $this->repository->find($id);
-        // if($user->update($request->all())){
-        //     return $this->HTTPStatus::sendResponse(
-        //         UserResource::make($user),
-        //         $this->HTTPStatus::HTTP_ACCEPTED
-        //     );
-        // }
+        $user = $this->repository->find($id);
+
+        if ($user->update($request->all())) {
+            return $this->HTTPStatus::sendResponse(
+                UserResource::make($user),
+                $this->HTTPStatus::HTTP_ACCEPTED
+            );
+        }
     }
 
     /**
@@ -109,7 +128,8 @@ class UserController extends BaseController
     public function destroy($id)
     {
         $user = $this->repository->find($id);
-        if($this->repository->delete($id)){
+
+        if ($this->repository->delete($id)) {
             return $this->HTTPStatus::sendResponse(
                 UserResource::make($user),
                 $this->HTTPStatus::HTTP_OK

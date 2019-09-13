@@ -22,8 +22,8 @@ class CreateUserFilesTable extends Migration
             $table->integer('file_id')->unsigned();
             $table->foreign('file_id')->references('id')->on('files')->onUpdate('cascade');
 
-            $table->string('file');
-            $table->boolean('approved')->default(0);
+            $table->string('filename');
+            $table->boolean('approved')->nullable()->default(null);
             $table->text('comment')->nullable();
             $table->timestamps();
         });

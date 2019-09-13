@@ -8,7 +8,7 @@ use App\Domain\User\Contracts\UserRepositoryInterface;
 use App\Domain\Profile\Repositories\ProfileRepository;
 use App\Domain\Profile\Contracts\ProfileRepositoryInterface;
 use App\Domain\File\Repositories\FileRepository;
-use App\Domain\FIle\Contracts\FileRepositoryInterface;
+use App\Domain\File\Contracts\FileRepositoryInterface;
 use App\Domain\Speciality\Repositories\SpecialityRepository;
 use App\Domain\Speciality\Contracts\SpecialityRepositoryInterface;
 use App\Domain\User\Repositories\UserBackgroundRepository;

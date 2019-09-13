@@ -12,10 +12,24 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
-            'name' => 'admin',
-            'email' => 'admin@mail.com',
+            'name' => 'medico',
+            'email' => 'medico@mail.com',
             'profile_id' => 1,
-            'password' => Hash::make('admin')
+            'password' => Hash::make('secret')
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'validator',
+            'email' => 'validator@mail.com',
+            'profile_id' => 2,
+            'password' => Hash::make('secret')
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'aprovador',
+            'email' => 'aprovador@mail.com',
+            'profile_id' => 3,
+            'password' => Hash::make('secret')
         ]);
         factory(User::class,100)->create();
     }

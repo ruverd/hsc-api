@@ -2,20 +2,20 @@
 
 namespace App\Interfaces\Http\Controllers\Register;
 
-use App\Domain\User\Contracts\UserSpecialityRepositoryInterface;
-use App\Domain\User\Resources\UserSpecialityResource;
+use App\Domain\User\Contracts\UserFileRepositoryInterface;
+use App\Domain\User\Resources\UserFileResource;
 use App\Infrastructure\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class SpecialityController extends BaseController
+class FileController extends BaseController
 {
     use AuthenticatesUsers;
 
     protected $repository = null;
 
-    public function __construct(UserSpecialityRepositoryInterface $repository)
+    public function __construct(UserFileRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -28,7 +28,7 @@ class SpecialityController extends BaseController
     public function index(Request $request)
     {
         return $this->HTTPStatus::sendResponse(
-            UserSpecialityResource::collection($this->repository->all()),
+            UserFileResource::collection($this->repository->all()),
             $this->HTTPStatus::HTTP_OK
         );
     }
@@ -38,12 +38,12 @@ class SpecialityController extends BaseController
      *
      * @return Resource
      */
-    public function getSpecialitiesByUser($userId)
+    public function getFilesByUser($userId)
     {
-        $specialities = $this->repository->findByField('user_id', $userId);
+        $files = $this->repository->findByField('user_id', $userId);
 
         return $this->HTTPStatus::sendResponse(
-            UserSpecialityResource::collection($specialities),
+            UserFileResource::collection($files),
             $this->HTTPStatus::HTTP_OK
         );
     }
@@ -56,10 +56,10 @@ class SpecialityController extends BaseController
      */
     public function show($id)
     {
-        $speciality = $this->repository->findByField('user_id', $id);
+        $file = $this->repository->findByField('user_id', $id);
 
         return $this->HTTPStatus::sendResponse(
-            UserSpecialityResource::make($speciality),
+            UserFileResource::make($file),
             $this->HTTPStatus::HTTP_OK
         );
     }
@@ -75,14 +75,14 @@ class SpecialityController extends BaseController
         $file = Storage::put('register/' . $request->user_id . '/', $request->file);
         $filename = basename($file);
 
-        $speciality = $this->repository->create([
+        $file = $this->repository->create([
             'user_id' => $request->user_id,
-            'speciality_id' => $request->speciality_id,
+            'file_id' => $request->file_id,
             'filename' => $filename,
         ]);
 
         return $this->HTTPStatus::sendResponse(
-            UserSpecialityResource::make($speciality),
+            UserFileResource::make($file),
             $this->HTTPStatus::HTTP_CREATED
         );
     }
@@ -95,14 +95,14 @@ class SpecialityController extends BaseController
      */
     public function destroy($id)
     {
-        $userSpeciality = $this->repository->find($id);
+        $userFile = $this->repository->find($id);
 
-        $fileName = 'register/' . $userSpeciality->user_id . '/' . $userSpeciality->filename;
+        $fileName = 'register/' . $userFile->user_id . '/' . $userFile->filename;
         Storage::delete($fileName);
 
         if ($this->repository->delete($id)) {
             return $this->HTTPStatus::sendResponse(
-                UserSpecialityResource::make($userSpeciality),
+                UserFileResource::make($userFile),
                 $this->HTTPStatus::HTTP_OK
             );
         }
@@ -116,9 +116,9 @@ class SpecialityController extends BaseController
      */
     public function download($id)
     {
-        $userSpeciality = $this->repository->find($id);
+        $userFile = $this->repository->find($id);
 
-        $fileName = 'register/' . $userSpeciality->user_id . '/' . $userSpeciality->filename;
+        $fileName = 'register/' . $userFile->user_id . '/' . $userFile->filename;
         $path_parts = pathinfo($fileName);
         $contents = Storage::get($fileName);
         $base64 = base64_encode($contents);
@@ -127,7 +127,8 @@ class SpecialityController extends BaseController
             [
                 'fileBase64' => $base64,
                 'extension' => $path_parts['extension'],
-            ], $this->HTTPStatus::HTTP_OK);
+            ], $this->HTTPStatus::HTTP_OK
+        );
     }
 
     /**
@@ -139,10 +140,10 @@ class SpecialityController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $userSpeciality = $this->repository->find($id);
-        if($userSpeciality->update($request->all())){
+        $userFile = $this->repository->find($id);
+        if($userFile->update($request->all())){
             return $this->HTTPStatus::sendResponse(
-                UserSpecialityResource::make($userSpeciality),
+                UserFileResource::make($userFile),
                 $this->HTTPStatus::HTTP_ACCEPTED
             );
         }

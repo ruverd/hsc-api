@@ -27,6 +27,9 @@ class UserResource extends BaseResource
             'gender' => $this->gender,
             'married' => $this->married,
             'dob' => $this->dob,
+            'registered' => $this->registered,
+            'validated' => $this->validated,
+            'approved' => $this->approved,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

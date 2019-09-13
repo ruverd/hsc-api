@@ -15,7 +15,7 @@ class UserSpeciality extends Model
   protected $fillable = [
     'user_id',
     'speciality_id',
-    'file',
+    'filename',
     'approved',
     'comment'
   ];
@@ -38,15 +38,5 @@ class UserSpeciality extends Model
   public function speciality()
   {
     return $this->belongsTo(Speciality::class);
-  }
-
-  public function getStatusLabel($approved = null)
-  {
-    if (status === 1) {
-        return "Aprovado";
-    } else if (status === 0) {
-      return "Negado";
-    }
-    return "Processando";
   }
 }
