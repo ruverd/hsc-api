@@ -66,6 +66,10 @@ Route::group([
     Route::put('register/files/{id}', 'Register\FileController@update')->name('register.files.update');
     Route::delete('register/files/{id}', 'Register\FileController@destroy')->name('register.files.destroy');
     Route::get('register/files/{id}/download', 'Register\FileController@download')->name('register.files.download');
+
+    Route::put('register/validate/{id}', 'Register\ValidateController@update')->name('register.validate');
+
+    Route::put('register/approve/{id}', 'Register\ApproveController@update')->name('register.approve');
 });
 
 Route::group([

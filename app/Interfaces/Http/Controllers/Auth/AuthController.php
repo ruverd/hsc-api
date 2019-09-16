@@ -38,19 +38,18 @@ class AuthController extends BaseController
     public function login(Request $request)
     {
         $validator = $this->validateCredentials($request);
-        if ($validator->fails()) {
+        if ($validator->fails())
             return response()->json(['error' => $validator->errors()],400);
-        }
 
-        if ($this->hasTooManyLoginAttempts($request)) {
+        if ($this->hasTooManyLoginAttempts($request))
             return response()->json(['error' => 'Você ultrapa o limite de tentativas.'], 429);
-        }
 
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
             $this->clearLoginAttempts($request);
             return $this->respondWithToken($token);
         }
+
         return $this->failedLogin($request);
     }
 
@@ -77,19 +76,21 @@ class AuthController extends BaseController
     public function register(Request $request)
     {
         $validator = $this->validateRegister($request);
-        if ($validator->fails()) return response()->json(['error' => $validator->errors()->first()],400);
-        
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()->first()],400);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
+
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
             $this->clearLoginAttempts($request);
             return $this->respondWithToken($token);
         }
+
         return $this->failedLogin($request);
     }
 
@@ -102,19 +103,21 @@ class AuthController extends BaseController
     public function updatePassword(Request $request)
     {
         $validator = $this->validateRegister($request);
-        if ($validator->fails()) return response()->json(['error' => $validator->errors()->first()],400);
-        
+        if ($validator->fails())
+            return response()->json(['error' => $validator->errors()->first()],400);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
+
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
             $this->clearLoginAttempts($request);
             return $this->respondWithToken($token);
         }
+
         return $this->failedLogin($request);
     }
 
@@ -130,7 +133,7 @@ class AuthController extends BaseController
             'name' => 'required|string|min:3',
             'email' => 'required|unique:users|string|email|max:255',
             'password' => 'required|min:3',
-            'password_confirmation' => 'required|min:3' 
+            'password_confirmation' => 'required|min:3'
         ]);
     }
 
@@ -143,6 +146,7 @@ class AuthController extends BaseController
     protected function failedLogin(Request $request)
     {
         $this->incrementLoginAttempts($request);
+
         return response()->json(['error' => 'Essas credenciais não correspondem aos nossos registros.'], 400);
     }
 
@@ -164,6 +168,7 @@ class AuthController extends BaseController
     public function logout()
     {
         $this->guard()->logout();
+
         return response()->json(['message' => 'Logout com sucesso.']);
     }
 

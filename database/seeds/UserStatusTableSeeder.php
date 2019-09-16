@@ -15,7 +15,7 @@ class UserStatusTableSeeder extends Seeder
         factory(UserStatus::class)->create(
             [
                 'id'   => 1,
-                'name' => 'Aguardando importação de arquivos'
+                'name' => 'Aguardando importação'
             ]
         );
 

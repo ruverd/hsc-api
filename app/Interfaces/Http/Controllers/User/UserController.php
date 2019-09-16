@@ -5,11 +5,14 @@ namespace App\Interfaces\Http\Controllers\User;
 use App\Domain\User\Contracts\UserRepositoryInterface;
 use App\Domain\User\Request\UserRequest;
 use App\Domain\User\Resources\UserResource;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Infrastructure\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
+    use AuthenticatesUsers;
+
     protected $repository = null;
 
     public function __construct(UserRepositoryInterface $repository)
@@ -24,8 +27,10 @@ class UserController extends BaseController
      */
     public function index(Request $request)
     {
+        $status = ((int) $this->guard()->user()->profile_id === 2) ? [2] : [3];
+
         return $this->HTTPStatus::sendResponse(
-            UserResource::collection($this->repository->all()),
+            UserResource::collection($this->repository->findWhereIn('user_status_id', $status)),
             $this->HTTPStatus::HTTP_OK
         );
     }

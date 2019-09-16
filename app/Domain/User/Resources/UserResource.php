@@ -30,6 +30,7 @@ class UserResource extends BaseResource
             'registered' => $this->registered,
             'validated' => $this->validated,
             'approved' => $this->approved,
+            'comment' => $this->comment,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
