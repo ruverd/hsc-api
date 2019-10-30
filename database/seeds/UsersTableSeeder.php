@@ -19,8 +19,8 @@ class UsersTableSeeder extends Seeder
         ]);
 
         factory(User::class)->create([
-            'name' => 'validator',
-            'email' => 'validator@mail.com',
+            'name' => 'validador',
+            'email' => 'validador@mail.com',
             'profile_id' => 2,
             'password' => Hash::make('secret')
         ]);

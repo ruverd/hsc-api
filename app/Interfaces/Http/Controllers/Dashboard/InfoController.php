@@ -14,13 +14,15 @@ use App\Domain\User\Contracts\UserSpecialityRepositoryInterface;
 use App\Domain\User\Contracts\UserVehicleRepositoryInterface;
 use App\Domain\User\Contracts\UserPaymentRepositoryInterface;
 use App\Domain\User\Contracts\UserFileRepositoryInterface;
+use App\Domain\Speciality\Contracts\SpecialityRepositoryInterface;
 
 class InfoController extends BaseController
 {
   use AuthenticatesUsers;
 
-  protected 
-    $repositoryUser, 
+  protected
+    $repositorySpeciality,
+    $repositoryUser,
     $repositoryUserDocument,
     $repositoryUserContact,
     $repositoryUserSpeciality,
@@ -29,6 +31,7 @@ class InfoController extends BaseController
     $repositoryUserFile = null;
 
   public function __construct(
+    SpecialityRepositoryInterface $repositorySpeciality,
     UserRepositoryInterface $repositoryUser,
     UserDocumentRepositoryInterface $repositoryUserDocument,
     UserContactRepositoryInterface $repositoryUserContact,
@@ -38,6 +41,7 @@ class InfoController extends BaseController
     UserFileRepositoryInterface $repositoryUserFile
   )
   {
+    $this->repositorySpeciality = $repositorySpeciality;
     $this->repositoryUser = $repositoryUser;
     $this->repositoryUserDocument = $repositoryUserDocument;
     $this->repositoryUserContact = $repositoryUserContact;
@@ -55,7 +59,7 @@ class InfoController extends BaseController
   public function report()
   {
     return response()->json(
-      $this->guard()->user()->profile_id == 1 ? $this->reportUser() : $this->reportAdmin(), 
+      $this->guard()->user()->profile_id == 1 ? $this->reportUser() : $this->reportAdmin(),
       $this->HTTPStatus::HTTP_OK
     );
   }
@@ -137,14 +141,13 @@ class InfoController extends BaseController
    */
   public function reportAdmin()
   {
-    $user = $this->repositoryUser->all();
 
     return [
-      'totalUser' => 100,
-      'awaitingApproval' => 8,
-      'avgTime' => 5,
-      'notCompleted' => 23,
-      'totalSpeciality' => 3
+      'totalUser' => count($this->repositoryUser->all()),
+      'awaitingApproval' => count($this->repositoryUser->findByField('user_status_id', 2)),
+      'avgTime' => $this->repositoryUser->avgApproveDays(),
+      'notCompleted' => count($this->repositoryUser->findByField('user_status_id', 1)),
+      'totalSpeciality' => count($this->repositorySpeciality->all())
     ];
   }
 }
