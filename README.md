@@ -15,8 +15,8 @@ composer install
 php artisan jwt:secret
 ```
 
-Configure the `.env` file after configuring run the command below to create the database:
+Configure the `.env` file after configuring run the command below to create the database and initial seed:
 
 ```shell
-php artisan migrate
+php artisan migrate --seed
 ```
