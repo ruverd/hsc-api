@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
             'profile_id' => 3,
             'password' => Hash::make('secret')
         ]);
-        factory(User::class,100)->create();
+        // factory(User::class,100)->create();
     }
 }

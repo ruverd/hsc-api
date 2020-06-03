@@ -81,56 +81,58 @@ class InfoController extends BaseController
     $total = 1;
 
     return [
-      'percentage' => 78,
-      'status' => 'Arquivos enviados',
-      'avgTime' => 5,
-      'steps' => [
-        '1' => [
-          'key' => 1,
-          'title' => 'Registro',
-          'concluded' => date("d/m/Y", strtotime($this->guard()->user()->created_at))
-        ],
-        '2' => [
-          'key' => 2,
-          'title' => 'Dados Pessoais',
-          'concluded' => isset($document[0]) ? date("d/m/Y", \strtotime($document[0]->created_at)) : false
-        ],
-        '3' => [
-          'key' => 3,
-          'title' => 'Informação de Contato',
-          'concluded' => isset($contact[0]) ? date("d/m/Y", \strtotime($contact[0]->created_at)) : false
-        ],
-        '4' => [
-          'key' => 4,
-          'title' => 'Cadastro de Especialidades',
-          'concluded' => isset($speciality[0]) ? date("d/m/Y", \strtotime($speciality[0]->created_at)) : false
-        ],
-        '5' => [
-          'key' => 5,
-          'title' => 'Cadastro de Veículo',
-          'concluded' => isset($vehicle[0]) ? date("d/m/Y", \strtotime($vehicle[0]->created_at)) : false
-        ],
-        '6' => [
-          'key' => 6,
-          'title' => 'Dados de Pagamento',
-          'concluded' => isset($payment[0]) ? date("d/m/Y", \strtotime($payment[0]->created_at)) : false
-        ],
-        '7' => [
-          'key' => 7,
-          'title' => 'Upload de arquivos',
-          'concluded' => isset($file[0]) ? date("d/m/Y", \strtotime($file[0]->created_at)) : false
-        ],
-        '8' => [
-          'key' => 8,
-          'title' => 'Validação dos Dados',
-          'concluded' => isset($this->guard()->user()->validate) ? date("d/m/Y", strtotime($this->guard()->user()->created_at)) : false
-        ],
-        '9' => [
-          'key' => 9,
-          'title' => 'Aprovação de Dados',
-          'concluded' => isset($this->guard()->user()->approve) ? date("d/m/Y", strtotime($this->guard()->user()->created_at)) : false
+        'data' => [
+            'percentage' => 78,
+            'status' => 'Arquivos enviados',
+            'avgTime' => 5,
+            'steps' => [
+                '1' => [
+                'key' => 1,
+                'title' => 'Registro',
+                'concluded' => date("d/m/Y", strtotime($this->guard()->user()->created_at))
+                ],
+                '2' => [
+                'key' => 2,
+                'title' => 'Dados Pessoais',
+                'concluded' => isset($document[0]) ? date("d/m/Y", \strtotime($document[0]->created_at)) : false
+                ],
+                '3' => [
+                'key' => 3,
+                'title' => 'Informação de Contato',
+                'concluded' => isset($contact[0]) ? date("d/m/Y", \strtotime($contact[0]->created_at)) : false
+                ],
+                '4' => [
+                'key' => 4,
+                'title' => 'Cadastro de Especialidades',
+                'concluded' => isset($speciality[0]) ? date("d/m/Y", \strtotime($speciality[0]->created_at)) : false
+                ],
+                '5' => [
+                'key' => 5,
+                'title' => 'Cadastro de Veículo',
+                'concluded' => isset($vehicle[0]) ? date("d/m/Y", \strtotime($vehicle[0]->created_at)) : false
+                ],
+                '6' => [
+                'key' => 6,
+                'title' => 'Dados de Pagamento',
+                'concluded' => isset($payment[0]) ? date("d/m/Y", \strtotime($payment[0]->created_at)) : false
+                ],
+                '7' => [
+                'key' => 7,
+                'title' => 'Upload de arquivos',
+                'concluded' => isset($file[0]) ? date("d/m/Y", \strtotime($file[0]->created_at)) : false
+                ],
+                '8' => [
+                'key' => 8,
+                'title' => 'Validação dos Dados',
+                'concluded' => isset($this->guard()->user()->validate) ? date("d/m/Y", strtotime($this->guard()->user()->created_at)) : false
+                ],
+                '9' => [
+                'key' => 9,
+                'title' => 'Aprovação de Dados',
+                'concluded' => isset($this->guard()->user()->approve) ? date("d/m/Y", strtotime($this->guard()->user()->created_at)) : false
+                ]
+            ]
         ]
-      ]
     ];
   }
 
@@ -143,11 +145,13 @@ class InfoController extends BaseController
   {
 
     return [
-      'totalUser' => count($this->repositoryUser->all()),
-      'awaitingApproval' => count($this->repositoryUser->findByField('user_status_id', 2)),
-      'avgTime' => $this->repositoryUser->avgApproveDays(),
-      'notCompleted' => count($this->repositoryUser->findByField('user_status_id', 1)),
-      'totalSpeciality' => count($this->repositorySpeciality->all())
+        'data' => [
+            'totalUser' => count($this->repositoryUser->all()),
+            'awaitingApproval' => count($this->repositoryUser->findByField('user_status_id', 2)),
+            'avgTime' => $this->repositoryUser->avgApproveDays(),
+            'notCompleted' => count($this->repositoryUser->findByField('user_status_id', 1)),
+            'totalSpeciality' => count($this->repositorySpeciality->all())
+        ]
     ];
   }
 }

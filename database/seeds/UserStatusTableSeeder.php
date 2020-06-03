@@ -5,11 +5,6 @@ use App\Domain\User\Entities\UserStatus;
 
 class UserStatusTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         factory(UserStatus::class)->create(
